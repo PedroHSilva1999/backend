@@ -132,3 +132,45 @@ A API possui documentação interativa disponível em:
 - O ID é gerado automaticamente pelo sistema
 - A API retorna os dados no formato JSON
 - Use a documentação Swagger para testar a API de forma interativa
+
+### 7. Banco de Dados
+
+#### Estrutura do Banco
+O projeto utiliza SQLite como banco de dados. A tabela `filmes` é criada automaticamente com a seguinte estrutura:
+
+```sql
+CREATE TABLE IF NOT EXISTS filmes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo TEXT NOT NULL,
+    diretor TEXT NOT NULL,
+    ano INTEGER NOT NULL,
+    genero TEXT NOT NULL
+)
+```
+
+#### Arquivo do Banco
+- O banco de dados é armazenado no arquivo `filmes.db`
+- Este arquivo é criado automaticamente na primeira execução
+- O arquivo está incluído no `.gitignore` para não ser versionado
+
+#### Persistência dos Dados
+- Com Docker: Os dados persistem através do volume mapeado
+- Sem Docker: O arquivo `filmes.db` é criado no diretório local
+
+#### Gerenciamento do Banco
+Para visualizar ou gerenciar o banco de dados, você pode usar:
+- SQLite Browser (https://sqlitebrowser.org/)
+- Extensão SQLite Viewer no VS Code
+- Ferramentas de linha de comando do SQLite
+- DBeaver
+- SQLiteStudio
+
+#### Backup
+Para fazer backup do banco:
+```bash
+# Com o container rodando
+docker cp <container_id>:/app/filmes.db ./backup_filmes.db
+
+# Sem Docker
+cp filmes.db backup_filmes.db
+```
